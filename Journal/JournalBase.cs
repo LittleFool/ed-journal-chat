@@ -15,10 +15,9 @@ namespace ed_journal_chat.Journal
     [JsonDerivedType(typeof(JournalFriends), typeDiscriminator: "Friends")]
     [JsonDerivedType(typeof(JournalWingInvite), typeDiscriminator: "WingInvite")]
     [JsonDerivedType(typeof(JournalFSDTarget), typeDiscriminator: "FSDTarget")]
+    [JsonDerivedType(typeof(JournalShutdown), typeDiscriminator: "Shutdown")]
     public class JournalBase
     {
         public DateTime timestamp { get; set; }
-
-        public string @event { get; set; }
     }
 }
