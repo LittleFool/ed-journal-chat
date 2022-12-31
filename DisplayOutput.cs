@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace ed_journal_chat
@@ -11,8 +12,16 @@ namespace ed_journal_chat
     {
         public static void SendText(JournalSendText journalObject)
         {
+            string to = journalObject.To;
+
+            switch (journalObject.To)
+            {
+                case "starsystem": to = "system"; break;
+                case "wing": to = "team"; break;
+            }
+
             if (journalObject.Sent)
-                Console.WriteLine(journalObject.timestamp + " *" + journalObject.To + "* Me: " + journalObject.Message);
+                Console.WriteLine(journalObject.timestamp + " *" + to + "* Me: " + journalObject.Message);
         }
 
         public static void ReceiveText(JournalReceiveText journalObject)
