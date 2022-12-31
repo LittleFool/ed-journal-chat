@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ed_journal_chat;
 
-Reader.RunWatcher();
+JournalReader.RunWatcher();
 
 while(true)
 {

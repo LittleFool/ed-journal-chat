@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ed_journal_chat
 {
-    internal class Reader
+    internal class JournalReader
     {
         private static int ReadLinesCount = 0;
         private static string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Saved Games\\Frontier Developments\\Elite Dangerous";
