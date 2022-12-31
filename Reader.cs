@@ -29,28 +29,24 @@ namespace ed_journal_chat
             var fs = new FileStream(e.FullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using (var sr = new StreamReader(fs))
             {
-                int totalLines = 0;
-                while (sr.ReadLine() != null) { totalLines++; }
-                int newLinesCount = totalLines - ReadLinesCount;
-                
-                fs.Position = 0;
-                sr.DiscardBufferedData();
-
-                for (int i = 0; i < ReadLinesCount; i++)
-                {
-                    sr.ReadLine();
-                }
-
                 string? line = sr.ReadLine();
-                while ( line != null )
+                int CurrentLine = 0;
+
+                while (line != null)
                 {
+                    CurrentLine++;
+
+                    if (CurrentLine <= ReadLinesCount || line.Equals(""))
+                    {
+                        line = sr.ReadLine();
+                        continue;
+                    }
+
                     Console.WriteLine(line);
                     line = sr.ReadLine();
                 }
 
-                ReadLinesCount = totalLines;
-                //Console.WriteLine($"Changed: {e.FullPath}");
-                //Console.WriteLine($"new lines count: {newLinesCount}");
+                ReadLinesCount = CurrentLine;
             }
         }
     }
