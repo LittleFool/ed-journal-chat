@@ -89,14 +89,23 @@ namespace ed_journal_chat
                     // determine which class we got
                     switch (value)
                     {
+                        case JournalFileheader:
+                            DisplayOutput.Fileheader((JournalFileheader)value); break;
+
                         case JournalSendText:
                             DisplayOutput.SendText((JournalSendText)value); break;
 
                         case JournalReceiveText:
                             DisplayOutput.ReceiveText((JournalReceiveText)value); break;
 
+                        case JournalFriends:
+                            DisplayOutput.Friends((JournalFriends)value); break;
+
+                        case JournalWingInvite:
+                            DisplayOutput.WingInvite((JournalWingInvite)value); break;
+
                         case JournalShutdown:
-                            Console.WriteLine(value.timestamp + " Game Closed"); break;
+                            DisplayOutput.Shutdown((JournalShutdown)value); break;
                     }
 
                     line = sr.ReadLine();

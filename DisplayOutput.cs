@@ -10,6 +10,17 @@ namespace ed_journal_chat
 {
     internal class DisplayOutput
     {
+        public static void Fileheader(JournalFileheader journalFileheader)
+        {
+            string mode;
+            if (journalFileheader.Odyssey)
+                mode = "Odyssey";
+            else
+                mode = "Horizons";
+
+            Console.WriteLine("This is " + mode + " version " + journalFileheader.gameversion + " build " + journalFileheader.build);
+        }
+
         public static void SendText(JournalSendText journalObject)
         {
             string to = journalObject.To;
@@ -39,6 +50,28 @@ namespace ed_journal_chat
             }
 
             Console.WriteLine(journalObject.timestamp + " *" + channel + "* " + journalObject.From + ": " + journalObject.Message);
+        }
+
+        public static void Friends(JournalFriends journalFriends)
+        {
+            switch(journalFriends.Status)
+            {
+                case "Requested":
+                    Console.WriteLine("friend request from " + journalFriends.Name); break;
+
+                case "Added":
+                    Console.WriteLine("now friends with " + journalFriends.Name); break;
+            }
+        }
+
+        public static void WingInvite(JournalWingInvite journalWingInvite)
+        {
+            Console.WriteLine("wing invite from " + journalWingInvite.Name);
+        }
+
+        public static void Shutdown(JournalShutdown journalShutdown)
+        {
+            Console.WriteLine(journalShutdown.timestamp + " Game Closed");
         }
     }
 }
