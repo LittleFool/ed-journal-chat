@@ -13,17 +13,16 @@ namespace ed_journal_chat
     internal class JournalReader
     {
         private static int ReadLinesCount = 0;
-        private static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Saved Games\\Frontier Developments\\Elite Dangerous";
         private static readonly string searchString = "Journal.????-??-??T??????.??.log";
         public static void RunWatcher()
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(Config.JournalPath))
             {
-                throw new DirectoryNotFoundException(path);
+                throw new DirectoryNotFoundException(Config.JournalPath);
             }
 
             FileSystemWatcher watcher = new();
-            watcher.Path = path;
+            watcher.Path = Config.JournalPath;
             watcher.NotifyFilter = NotifyFilters.FileName
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite;
@@ -117,14 +116,14 @@ namespace ed_journal_chat
 
         public static void Read()
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(Config.JournalPath))
             {
-                throw new DirectoryNotFoundException(path);
+                throw new DirectoryNotFoundException(Config.JournalPath);
             }
 
             DateTime newestFileTime = DateTime.MinValue;
             string? newestFilePath = null;
-            string[] fileEntries = Directory.GetFiles(path, searchString);
+            string[] fileEntries = Directory.GetFiles(Config.JournalPath, searchString);
             foreach (string fileEntry in fileEntries)
             {
                 DateTime currentFileTime = File.GetLastWriteTime(fileEntry);
