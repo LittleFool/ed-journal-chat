@@ -31,7 +31,6 @@ namespace ed_journal_chat
                 return;
 
             string channel = journalObject.Channel;
-
             switch(journalObject.Channel)
             {
                 case "player": channel = "direct"; break;

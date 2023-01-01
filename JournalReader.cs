@@ -24,12 +24,16 @@ namespace ed_journal_chat
             watcher.Filter = "Journal.????-??-??T??????.??.log";
             watcher.Changed += OnChanged;
             watcher.EnableRaisingEvents = true;
-
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-            var fs = new FileStream(e.FullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            ParseJournalFile(e.FullPath);
+        }
+
+        private static void ParseJournalFile(string FullPath)
+        {
+            var fs = new FileStream(FullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using (var sr = new StreamReader(fs, Encoding.UTF8))
             {
                 string? line = sr.ReadLine();
@@ -58,7 +62,8 @@ namespace ed_journal_chat
                         {
                             // add the event attribute at the front
                             line = line.Replace("{ ", "{ " + m.Value);
-                        } else
+                        }
+                        else
                         {
                             // no attribute after event, we need to fix the ","
                             line = line.Replace("{ ", "{ " + m.Value.Trim() + ", ");
