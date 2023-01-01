@@ -32,7 +32,7 @@ namespace ed_journal_chat
             }
 
             if (journalObject.Sent)
-                Console.WriteLine(journalObject.timestamp + " *" + to + "* Me: " + journalObject.Message);
+                Console.WriteLine(journalObject.timestamp.TimeOfDay + " *" + to + "* Me: " + journalObject.Message);
         }
 
         public static void ReceiveText(JournalReceiveText journalObject)
@@ -49,7 +49,7 @@ namespace ed_journal_chat
                 case "wing": channel = "team"; break;
             }
 
-            Console.WriteLine(journalObject.timestamp + " *" + channel + "* " + journalObject.From + ": " + journalObject.Message);
+            Console.WriteLine(journalObject.timestamp.TimeOfDay + " *" + channel + "* " + journalObject.From + ": " + journalObject.Message);
         }
 
         public static void Friends(JournalFriends journalFriends)
@@ -57,21 +57,21 @@ namespace ed_journal_chat
             switch(journalFriends.Status)
             {
                 case "Requested":
-                    Console.WriteLine("friend request from " + journalFriends.Name); break;
+                    Console.WriteLine(journalFriends.timestamp.TimeOfDay + " friend request from " + journalFriends.Name); break;
 
                 case "Added":
-                    Console.WriteLine("now friends with " + journalFriends.Name); break;
+                    Console.WriteLine(journalFriends.timestamp.TimeOfDay + " now friends with " + journalFriends.Name); break;
             }
         }
 
         public static void WingInvite(JournalWingInvite journalWingInvite)
         {
-            Console.WriteLine("wing invite from " + journalWingInvite.Name);
+            Console.WriteLine(journalWingInvite.timestamp.TimeOfDay + " wing invite from " + journalWingInvite.Name);
         }
 
         public static void Shutdown(JournalShutdown journalShutdown)
         {
-            Console.WriteLine(journalShutdown.timestamp + " Game Closed");
+            Console.WriteLine(journalShutdown.timestamp.TimeOfDay + " Game Closed");
         }
     }
 }
