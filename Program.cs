@@ -3,6 +3,8 @@ using ed_journal_chat;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
+
+JournalReader.Read();
 JournalReader.RunWatcher();
 
 while(true)
