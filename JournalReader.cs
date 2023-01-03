@@ -21,22 +21,27 @@ namespace ed_journal_chat
                 throw new DirectoryNotFoundException(Config.JournalPath);
             }
 
+            if (Config.ActiveJournalFile == null)
+            {
+                throw new Exception("Config.ActiveJournalFile not set");
+            }
+
             FileSystemWatcher watcher = new();
             watcher.Path = Config.JournalPath;
             watcher.NotifyFilter = NotifyFilters.FileName
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite;
-            watcher.Filter = Config.JournalFileSearchPattern;
-            watcher.Changed += OnChanged;
+            watcher.Filter = Config.ActiveJournalFile.Name;
+            watcher.Changed += ParseJournalFile;
             watcher.EnableRaisingEvents = true;
         }
 
-        private static void OnChanged(object sender, FileSystemEventArgs e)
+        private static void ParseJournalFile(object sender, FileSystemEventArgs e)
         {
             ParseJournalFile(e.FullPath);
         }
 
-        private static void ParseJournalFile(string? FullPath)
+        public static void ParseJournalFile(string? FullPath)
         {
             if (FullPath == null || !File.Exists(FullPath))
             {

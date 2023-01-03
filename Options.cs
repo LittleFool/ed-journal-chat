@@ -24,13 +24,13 @@ namespace ed_journal_chat
             Console.WriteLine();
 
             int index = (int) Char.GetNumericValue(input);
-            if (index == -1)
+            if (index <= 0 || index > 5)
             {
                 SelectJournalFile();
                 return;
             }
 
-            Config.ActiveJournalFIle = files[index - 1].FullName;
+            Config.ActiveJournalFile = files[index - 1];
             Console.Clear();
         }
     }

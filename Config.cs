@@ -10,6 +10,6 @@ namespace ed_journal_chat
     {
         public static readonly string JournalPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Saved Games\\Frontier Developments\\Elite Dangerous";
         public static readonly string JournalFileSearchPattern = "Journal.????-??-??T??????.??.log";
-        public static string ActiveJournalFIle { get; set; }
+        public static FileInfo? ActiveJournalFile { get; set; }
     }
 }

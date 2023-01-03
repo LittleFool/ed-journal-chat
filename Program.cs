@@ -5,8 +5,12 @@ using System.Text;
 Console.OutputEncoding = Encoding.UTF8;
 
 Options.SelectJournalFile();
-//JournalReader.Read();
-//JournalReader.RunWatcher();
+
+if (Config.ActiveJournalFile != null)
+{
+    JournalReader.ParseJournalFile(Config.ActiveJournalFile.FullName);
+    JournalReader.RunWatcher();
+}
 
 while(true)
 {
