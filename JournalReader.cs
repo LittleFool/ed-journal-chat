@@ -13,7 +13,7 @@ namespace ed_journal_chat
     internal class JournalReader
     {
         private static int ReadLinesCount = 0;
-        private static readonly string searchString = "Journal.????-??-??T??????.??.log";
+
         public static void RunWatcher()
         {
             if (!Directory.Exists(Config.JournalPath))
@@ -26,7 +26,7 @@ namespace ed_journal_chat
             watcher.NotifyFilter = NotifyFilters.FileName
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite;
-            watcher.Filter = searchString;
+            watcher.Filter = Config.JournalFileSearchPattern;
             watcher.Changed += OnChanged;
             watcher.EnableRaisingEvents = true;
         }
@@ -123,7 +123,7 @@ namespace ed_journal_chat
 
             DateTime newestFileTime = DateTime.MinValue;
             string? newestFilePath = null;
-            string[] fileEntries = Directory.GetFiles(Config.JournalPath, searchString);
+            string[] fileEntries = Directory.GetFiles(Config.JournalPath, Config.JournalFileSearchPattern);
             foreach (string fileEntry in fileEntries)
             {
                 DateTime currentFileTime = File.GetLastWriteTime(fileEntry);

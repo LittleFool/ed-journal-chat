@@ -4,8 +4,9 @@ using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-JournalReader.Read();
-JournalReader.RunWatcher();
+Options.SelectJournalFile();
+//JournalReader.Read();
+//JournalReader.RunWatcher();
 
 while(true)
 {
