@@ -21,6 +21,11 @@ namespace ed_journal_chat
             Console.WriteLine("This is " + mode + " version " + journalFileheader.gameversion + " build " + journalFileheader.build);
         }
 
+        public static void Commander(JournalCommander journalCommander)
+        {
+            Console.WriteLine("CMDR " + journalCommander.Name + " (" + journalCommander.FID + ")");
+        }
+
         public static void SendText(JournalSendText journalObject)
         {
             string to = journalObject.To;

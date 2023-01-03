@@ -10,6 +10,7 @@ namespace ed_journal_chat.Journal
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "event", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToBaseType, IgnoreUnrecognizedTypeDiscriminators = true)]
     [JsonDerivedType(typeof(JournalBase), typeDiscriminator: "base")]
     [JsonDerivedType(typeof(JournalFileheader), typeDiscriminator: "Fileheader")]
+    [JsonDerivedType(typeof(JournalCommander), typeDiscriminator: "Commander")]
     [JsonDerivedType(typeof(JournalSendText), typeDiscriminator: "SendText")]
     [JsonDerivedType(typeof(JournalReceiveText), typeDiscriminator: "ReceiveText")]
     [JsonDerivedType(typeof(JournalFriends), typeDiscriminator: "Friends")]

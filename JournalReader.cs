@@ -96,6 +96,9 @@ namespace ed_journal_chat
                         case JournalFileheader:
                             DisplayOutput.Fileheader((JournalFileheader)value); break;
 
+                        case JournalCommander:
+                            DisplayOutput.Commander((JournalCommander)value); break;
+
                         case JournalSendText:
                             DisplayOutput.SendText((JournalSendText)value); break;
 
