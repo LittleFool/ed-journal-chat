@@ -6,6 +6,6 @@ namespace ed_journal_chat.Journal
     {
         public string From { get; set; }
         public string Message { get; set; }
-        public string Channel { get; set; }
+        public string? Channel { get; set; }
     }
 }

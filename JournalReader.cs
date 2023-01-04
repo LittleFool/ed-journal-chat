@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ namespace ed_journal_chat
     internal class JournalReader
     {
         private static int ReadLinesCount = 0;
+        public static string? CMDRName = null;
 
         public static void RunWatcher()
         {
