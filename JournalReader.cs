@@ -101,6 +101,9 @@ namespace ed_journal_chat
                         case JournalCommander:
                             DisplayOutput.Commander((JournalCommander)value); break;
 
+                        case JournalFSDTarget:
+                            var FSDTarget = (JournalFSDTarget)value; CMDR.FSDTarget = FSDTarget.Name; break;
+                        
                         case JournalSendText:
                             DisplayOutput.SendText((JournalSendText)value); break;
 

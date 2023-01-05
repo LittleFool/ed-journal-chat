@@ -1,18 +1,43 @@
-﻿// See https://aka.ms/new-console-template for more information
-using ed_journal_chat;
-using System.Text;
+﻿using System.Text;
 
-Console.OutputEncoding = Encoding.UTF8;
-
-Options.SelectJournalFile();
-
-if (Config.ActiveJournalFile != null)
+namespace ed_journal_chat
 {
-    JournalReader.ParseJournalFile(Config.ActiveJournalFile.FullName);
-    JournalReader.RunWatcher();
-}
+    internal class Program
+    {
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
 
-while(true)
-{
-    System.Threading.Thread.Sleep(1000);
+            Options.SelectJournalFile();
+
+            if (Config.ActiveJournalFile != null)
+            {
+                JournalReader.ParseJournalFile(Config.ActiveJournalFile.FullName);
+                JournalReader.RunWatcher();
+            }
+
+            char? input = null;
+
+            while (!input.Equals('q'))
+            {
+                input = Console.ReadKey().KeyChar;
+
+                switch (input)
+                {
+                    case ' ':
+                        SetClipboard(CMDR.FSDTarget); break;
+                }
+            }
+
+        }
+
+        private static void SetClipboard(string? s)
+        {
+            if (s != null && s.Length > 0)
+            {
+                Clipboard.SetText(s);
+            }
+        }
+    }
 }
