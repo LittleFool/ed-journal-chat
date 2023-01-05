@@ -15,10 +15,14 @@ namespace ed_journal_chat
     {
         private static int ReadLinesCount = 0;
         private static FileSystemWatcher watcher = new();
-        public static string? CMDRName = null;
+        public static bool LegacyModeOn { get; private set; }
+        private static CancellationTokenSource cancelToken = new CancellationTokenSource();
 
         public static void RunWatcher()
         {
+            if (LegacyModeOn)
+                return;
+
             if (!Directory.Exists(Config.JournalPath))
             {
                 throw new DirectoryNotFoundException(Config.JournalPath);
@@ -31,6 +35,8 @@ namespace ed_journal_chat
 
             watcher.Path = Config.JournalPath;
             watcher.NotifyFilter = NotifyFilters.FileName
+                                 | NotifyFilters.Size
+                                 | NotifyFilters.CreationTime
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite;
             watcher.Filter = Config.ActiveJournalFile.Name;
@@ -40,13 +46,20 @@ namespace ed_journal_chat
 
         public static void StopWatcher()
         {
-            watcher.EnableRaisingEvents = false;
+            if (LegacyModeOn)
+                cancelToken.Cancel();
+            else
+                watcher.EnableRaisingEvents = false;
+
             ReadLinesCount = 0;
         }
 
         public static void ContinueWatcher()
         {
-            watcher.EnableRaisingEvents = true;
+            if (LegacyModeOn)
+                Task.Run(() => PokeLegacy(), cancelToken.Token);
+            else
+                watcher.EnableRaisingEvents = true;
         }
 
         private static void ParseJournalFile(object sender, FileSystemEventArgs e)
@@ -131,10 +144,32 @@ namespace ed_journal_chat
                             DisplayOutput.Shutdown((JournalShutdown)value); break;
                     }
 
+                    if (CMDR.Legacy && !LegacyModeOn)
+                    {
+                        StopWatcher();
+                        LegacyModeOn = true;
+                        
+                        Task.Run(() => PokeLegacy(), cancelToken.Token);
+                        return;
+                    }
+
                     line = sr.ReadLine();
                 }
 
                 ReadLinesCount = CurrentLine;
+            }
+        }
+
+        public static void PokeLegacy()
+        {
+            while (true)
+            {
+                cancelToken.Token.ThrowIfCancellationRequested();
+
+                if (Config.ActiveJournalFile != null)
+                    ParseJournalFile(Config.ActiveJournalFile.FullName);
+
+                Thread.Sleep(1000);
             }
         }
     }

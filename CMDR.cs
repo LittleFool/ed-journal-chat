@@ -12,5 +12,6 @@ namespace ed_journal_chat
         public static string? FSDTarget { get; set; }
         public static string? LastReceivedText { get; set; }
         public static string? LastSentText { get; set; }
+        public static bool Legacy { get; set; }
     }
 }

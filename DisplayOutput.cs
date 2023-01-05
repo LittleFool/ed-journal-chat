@@ -14,19 +14,27 @@ namespace ed_journal_chat
         {
             string mode;
             if (journalFileheader.Odyssey)
-                mode = "Odyssey";
-            else
-                mode = "Horizons";
+            {
+                mode = "Live";
+                CMDR.Legacy = false;
+            } else
+            {
+                mode = "Legacy";
+                CMDR.Legacy = true;
+
+                if (!JournalReader.LegacyModeOn)
+                    return;
+            }
 
             Console.WriteLine("This is " + mode + " version " + journalFileheader.gameversion + " build " + journalFileheader.build);
         }
 
         public static void Commander(JournalCommander journalCommander)
         {
-            if (JournalReader.CMDRName == null)
+            if (CMDR.Name == null)
             {
                 Console.WriteLine("CMDR " + journalCommander.Name + " (" + journalCommander.FID + ")");
-                JournalReader.CMDRName = journalCommander.Name;
+                CMDR.Name = journalCommander.Name;
             }
         }
 
@@ -45,10 +53,10 @@ namespace ed_journal_chat
             }
 
             string cmdrName;
-            if (JournalReader.CMDRName == null)
+            if (CMDR.Name == null)
                 cmdrName = "Me";
             else
-                cmdrName = JournalReader.CMDRName;
+                cmdrName = CMDR.Name;
 
             if (journalObject.Sent)
             {

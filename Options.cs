@@ -12,11 +12,22 @@ namespace ed_journal_chat
         {
             Console.Clear();
             DirectoryInfo journalDir = new DirectoryInfo(Config.JournalPath);
-            FileInfo[] files = journalDir.GetFiles(Config.JournalFileSearchPattern).OrderByDescending(p => p.LastWriteTime).ToArray();
+            FileInfo[] H4Files = journalDir.GetFiles(Config.JournalFileSearchPatternH4).OrderByDescending(p => p.LastWriteTime).ToArray();
+            FileInfo[] H3Files = journalDir.GetFiles(Config.JournalFileSearchPatternH3).OrderByDescending(p => p.LastWriteTime).ToArray();
 
-            for (int i = 0; i < files.Length && i < 5; i++)
+            int i = 0;
+            int j = 0;
+
+            for (i = 0; i < H4Files.Length && i < 5; i++)
             {
-                Console.WriteLine("[" + (i + 1) + "] " + files[i].Name);
+                Console.WriteLine("[" + i + "] " + H4Files[i].Name);
+            }
+
+            Console.WriteLine(new String('-', 33));
+
+            for (j = 0; j < H3Files.Length && j < 5; j++)
+            {
+                Console.WriteLine("[" + (i + j) + "] " + H3Files[j].Name);
             }
 
             Console.Write("Select the journal file to use: ");
@@ -24,13 +35,20 @@ namespace ed_journal_chat
             Console.WriteLine();
 
             int index = (int) Char.GetNumericValue(input);
-            if (index <= 0 || index > 5)
+            if (index < 0 || index > i+j)
             {
                 SelectJournalFile();
                 return;
             }
 
-            Config.ActiveJournalFile = files[index - 1];
+            if (index < i)
+            {
+                Config.ActiveJournalFile = H4Files[index];
+            } else
+            {
+                Config.ActiveJournalFile = H3Files[index - i];
+            }
+
             Console.Clear();
         }
     }
