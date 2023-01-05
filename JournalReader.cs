@@ -14,6 +14,7 @@ namespace ed_journal_chat
     internal class JournalReader
     {
         private static int ReadLinesCount = 0;
+        private static FileSystemWatcher watcher = new();
         public static string? CMDRName = null;
 
         public static void RunWatcher()
@@ -28,13 +29,23 @@ namespace ed_journal_chat
                 throw new Exception("Config.ActiveJournalFile not set");
             }
 
-            FileSystemWatcher watcher = new();
             watcher.Path = Config.JournalPath;
             watcher.NotifyFilter = NotifyFilters.FileName
                                  | NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite;
             watcher.Filter = Config.ActiveJournalFile.Name;
             watcher.Changed += ParseJournalFile;
+            watcher.EnableRaisingEvents = true;
+        }
+
+        public static void StopWatcher()
+        {
+            watcher.EnableRaisingEvents = false;
+            ReadLinesCount = 0;
+        }
+
+        public static void ContinueWatcher()
+        {
             watcher.EnableRaisingEvents = true;
         }
 
