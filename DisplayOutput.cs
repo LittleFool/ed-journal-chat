@@ -44,10 +44,10 @@ namespace ed_journal_chat
             {
                 case "chat": Console.ForegroundColor = ConsoleColor.Blue; break;
                 case "local": Console.ForegroundColor = ConsoleColor.Yellow; break;
-                case "starsystem": Console.ForegroundColor = ConsoleColor.Yellow; break;
+                case "starsystem": Console.ForegroundColor = ConsoleColor.DarkRed; break;
                 case "wing": Console.ForegroundColor = ConsoleColor.Cyan; break;
                 case "squadron": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "squadleaders": Console.ForegroundColor = ConsoleColor.Cyan; break;
+                case "squadleaders": Console.ForegroundColor = ConsoleColor.Green; break;
                 case "voicechat": Console.ForegroundColor = ConsoleColor.Magenta; break;
                 default: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
             }
@@ -75,10 +75,10 @@ namespace ed_journal_chat
                 case null: Console.ForegroundColor = ConsoleColor.Blue; break;
                 case "player": Console.ForegroundColor = ConsoleColor.DarkYellow; break;
                 case "local": Console.ForegroundColor = ConsoleColor.Yellow; break;
-                case "starsystem": Console.ForegroundColor = ConsoleColor.Yellow; break;
+                case "starsystem": Console.ForegroundColor = ConsoleColor.DarkRed; break;
                 case "wing": Console.ForegroundColor = ConsoleColor.Cyan; break;
                 case "squadron": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "squadleaders": Console.ForegroundColor = ConsoleColor.Cyan; break;
+                case "squadleaders": Console.ForegroundColor = ConsoleColor.Green; break;
                 case "voicechat": Console.ForegroundColor = ConsoleColor.Magenta; break;
             }
 
