@@ -108,6 +108,11 @@ namespace ed_journal_chat
             Console.WriteLine(journalWingInvite.timestamp.TimeOfDay + " - team invite from " + journalWingInvite.Name);
         }
 
+        public static void FSDTarget(JournalFSDTarget journalFSDTarget)
+        {
+            Console.WriteLine("Copied system to clipboard: " + journalFSDTarget.Name);
+        }
+
         public static void Shutdown(JournalShutdown journalShutdown)
         {
             Console.WriteLine(journalShutdown.timestamp.TimeOfDay + " - Game Closed");

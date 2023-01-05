@@ -25,10 +25,19 @@ namespace ed_journal_chat
             {
                 input = Console.ReadKey().KeyChar;
 
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write("   ");
+                Console.SetCursorPosition(0, Console.CursorTop);
+
                 switch (input)
                 {
                     case ' ':
-                        SetClipboard(CMDR.FSDTarget); break;
+                        if (CMDR.FSDTarget != null)
+                        { 
+                            SetClipboard(CMDR.FSDTarget.Name);
+                            DisplayOutput.FSDTarget(CMDR.FSDTarget);
+                        }
+                        break;
                     case 's':
                         SetClipboard(CMDR.LastSentText); break;
                     case 'r':
@@ -36,12 +45,7 @@ namespace ed_journal_chat
                     case 'h':
                         PrintHelp(); break;
                 }
-
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write("   ");
-                Console.SetCursorPosition(0, Console.CursorTop);
             }
-
         }
 
         private static void SetClipboard(string? s)
