@@ -27,7 +27,15 @@ namespace ed_journal_chat
                 {
                     case ' ':
                         SetClipboard(CMDR.FSDTarget); break;
+                    case 's':
+                        SetClipboard(CMDR.LastSentText); break;
+                    case 'r':
+                        SetClipboard(CMDR.LastReceivedText); break;
                 }
+
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write("   ");
+                Console.SetCursorPosition(0, Console.CursorTop);
             }
 
         }

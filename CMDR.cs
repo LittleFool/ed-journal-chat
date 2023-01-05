@@ -10,5 +10,7 @@ namespace ed_journal_chat
     {
         public static string? Name { get; set; }
         public static string? FSDTarget { get; set; }
+        public static string? LastReceivedText { get; set; }
+        public static string? LastSentText { get; set; }
     }
 }

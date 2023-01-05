@@ -51,7 +51,11 @@ namespace ed_journal_chat
                 cmdrName = JournalReader.CMDRName;
 
             if (journalObject.Sent)
+            {
                 Console.WriteLine(journalObject.timestamp.TimeOfDay + " - " + cmdrName + ":\t" + journalObject.Message);
+                CMDR.LastSentText = journalObject.Message;
+            }
+                
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
@@ -75,6 +79,7 @@ namespace ed_journal_chat
                 return;
 
             Console.WriteLine(journalObject.timestamp.TimeOfDay + " - " + journalObject.From + ":\t" + journalObject.Message);
+            CMDR.LastReceivedText = journalObject.Message;
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
