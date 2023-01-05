@@ -137,33 +137,5 @@ namespace ed_journal_chat
                 ReadLinesCount = CurrentLine;
             }
         }
-
-        public static void Read()
-        {
-            if (!Directory.Exists(Config.JournalPath))
-            {
-                throw new DirectoryNotFoundException(Config.JournalPath);
-            }
-
-            DateTime newestFileTime = DateTime.MinValue;
-            string? newestFilePath = null;
-            string[] fileEntries = Directory.GetFiles(Config.JournalPath, Config.JournalFileSearchPattern);
-            foreach (string fileEntry in fileEntries)
-            {
-                DateTime currentFileTime = File.GetLastWriteTime(fileEntry);
-                if (currentFileTime > newestFileTime)
-                {
-                    newestFileTime = currentFileTime;
-                    newestFilePath= fileEntry;
-                }
-            }
-
-            if (newestFileTime == DateTime.MinValue)
-            {
-                throw new Exception("No file matches the filter!");
-            }
-
-            ParseJournalFile(newestFilePath);
-        }
     }
 }
