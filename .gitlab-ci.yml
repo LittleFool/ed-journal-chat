@@ -29,10 +29,9 @@
 
 # place project specific paths in variables to make the rest of the script more generic
 variables:
-  EXE_RELEASE_FOLDER: 'bin\Release\net7.0-windows'
+  EXE_RELEASE_FOLDER: 'bin\Release\net7.0-windows\win-x86\publish'
   DEPLOY_FOLDER: 'C:\Projects\ed-journal-chat\Builds'
   NUGET_PATH: 'C:\Projects\nuget.exe'
-  MSBUILD_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe'
 
 stages:
   - build
@@ -45,11 +44,11 @@ build_job:
     - shell
   script:
     - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
-    - '& "$env:MSBUILD_PATH" /p:Configuration=Release'  # build the project
+    - 'dotnet publish -f net7.0-windows -r win-x86 -p:PublishSingleFile=true,Configuration=Release --self-contained true'
   artifacts:
     expire_in: 1 week  # save gitlab server space, we copy the files we need to deploy folder later on
     paths:
-      - 'bin\Release\net7.0-windows\ed-journal-chat.exe'  # saving exe to copy to deploy folder
+      - 'bin\Release\net7.0-windows\win-x86\publish\ed-journal-chat.exe'  # saving exe to copy to deploy folder
 
 deploy_job:
   stage: deploy
