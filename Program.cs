@@ -38,10 +38,17 @@ namespace ed_journal_chat
                             DisplayOutput.FSDTarget(CMDR.FSDTarget);
                         }
                         break;
+
                     case 's':
                         SetClipboard(CMDR.LastSentText); break;
+                    case 'ы':
+                        SetClipboard(CMDR.LastSentText); break;
+
                     case 'r':
                         SetClipboard(CMDR.LastReceivedText); break;
+                    case 'к':
+                        SetClipboard(CMDR.LastReceivedText); break;
+
                     case 'h':
                         PrintHelp(); break;
                 }
