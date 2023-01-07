@@ -65,7 +65,7 @@ deploy_job:
     - '$deployFolder = $($env:DEPLOY_FOLDER) + "\" + $($env:CI_BUILD_TAG) + " - " + $commitSubject + "\"'
 
     # xcopy takes care of recursively creating required folders
-    - 'xcopy /y ".\$env:EXE_RELEASE_FOLDER\YourApp.exe" "$deployFolder"'
+    - 'xcopy /y ".\$env:EXE_RELEASE_FOLDER\ed-journal-chat.exe" "$deployFolder"'
   dependencies:
     - build_job
   environment: production
