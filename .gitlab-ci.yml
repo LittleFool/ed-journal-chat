@@ -42,6 +42,9 @@ stages:
 
 build_job:
   stage: build
+  tags:
+    - windows
+    - shell
   only:
     - tags  # the build process will only be started by git tag commits
   script:
@@ -56,6 +59,9 @@ build_job:
 
 deploy_job:
   stage: deploy
+  tags:
+    - windows
+    - shell
   only:
     - tags
   script:
