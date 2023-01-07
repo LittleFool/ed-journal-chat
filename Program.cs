@@ -36,6 +36,9 @@ namespace ed_journal_chat
                         { 
                             SetClipboard(CMDR.FSDTarget.Name);
                             DisplayOutput.FSDTarget(CMDR.FSDTarget);
+                        } else
+                        {
+                            Console.WriteLine("No targeted system found!");
                         }
                         break;
 
@@ -76,6 +79,16 @@ namespace ed_journal_chat
                 Console.WriteLine("'s'\tcopy last sent message to clipboard");
                 Console.WriteLine("'r'\tcopy last received message to clipboard");
                 Console.WriteLine("'h'\topen and close this page");
+                Console.WriteLine();
+
+                Console.WriteLine("Chat colors are as follows:");
+                foreach(KeyValuePair<string, ConsoleColor> entry in DisplayOutput.ChatColors)
+                {
+                    Console.ForegroundColor = entry.Value;
+                    Console.WriteLine(DisplayOutput.ChannelTranslations[entry.Key]);
+                }
+
+                Console.ForegroundColor = ConsoleColor.Gray;
             } else
             {
                 Console.Clear();
@@ -86,8 +99,6 @@ namespace ed_journal_chat
                     JournalReader.ParseJournalFile(Config.ActiveJournalFile.FullName);
                 }
             }
-
-            
         }
     }
 }

@@ -10,6 +10,30 @@ namespace ed_journal_chat
 {
     internal class DisplayOutput
     {
+        public static readonly Dictionary<string, ConsoleColor> ChatColors = new();
+        public static readonly Dictionary<string, string> ChannelTranslations = new();
+
+        static DisplayOutput()
+        {
+            ChatColors.Add("local", ConsoleColor.Yellow);
+            ChatColors.Add("player", ConsoleColor.DarkYellow);
+            ChatColors.Add("wing", ConsoleColor.Cyan);
+            ChatColors.Add("starsystem", ConsoleColor.DarkRed);
+            ChatColors.Add("squadron", ConsoleColor.Green);
+            ChatColors.Add("squadleaders", ConsoleColor.Green);
+            ChatColors.Add("voicechat", ConsoleColor.Magenta);
+            ChatColors.Add("chat", ConsoleColor.Blue);
+
+            ChannelTranslations.Add("chat", "multicrew");
+            ChannelTranslations.Add("local", "local");
+            ChannelTranslations.Add("starsystem", "system");
+            ChannelTranslations.Add("wing", "team");
+            ChannelTranslations.Add("squadron", "squadron");
+            ChannelTranslations.Add("squadleaders", "squad leaders");
+            ChannelTranslations.Add("voicechat", "voicechat");
+            ChannelTranslations.Add("player", "direct");
+        }
+
         public static void Fileheader(JournalFileheader journalFileheader)
         {
             string mode;
@@ -40,16 +64,12 @@ namespace ed_journal_chat
 
         public static void SendText(JournalSendText journalObject)
         {
-            switch (journalObject.To)
+            if (ChatColors.ContainsKey(journalObject.To))
             {
-                case "chat": Console.ForegroundColor = ConsoleColor.Blue; break;
-                case "local": Console.ForegroundColor = ConsoleColor.Yellow; break;
-                case "starsystem": Console.ForegroundColor = ConsoleColor.DarkRed; break;
-                case "wing": Console.ForegroundColor = ConsoleColor.Cyan; break;
-                case "squadron": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "squadleaders": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "voicechat": Console.ForegroundColor = ConsoleColor.Magenta; break;
-                default: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                Console.ForegroundColor = ChatColors[journalObject.To];
+            } else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
             }
 
             string cmdrName;
@@ -69,17 +89,13 @@ namespace ed_journal_chat
 
         public static void ReceiveText(JournalReceiveText journalObject)
         {
-            string? channel = journalObject.Channel;
-            switch(journalObject.Channel)
+            // null = MC chat
+            if (journalObject.Channel == null)
             {
-                case null: Console.ForegroundColor = ConsoleColor.Blue; break;
-                case "player": Console.ForegroundColor = ConsoleColor.DarkYellow; break;
-                case "local": Console.ForegroundColor = ConsoleColor.Yellow; break;
-                case "starsystem": Console.ForegroundColor = ConsoleColor.DarkRed; break;
-                case "wing": Console.ForegroundColor = ConsoleColor.Cyan; break;
-                case "squadron": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "squadleaders": Console.ForegroundColor = ConsoleColor.Green; break;
-                case "voicechat": Console.ForegroundColor = ConsoleColor.Magenta; break;
+                Console.ForegroundColor = ConsoleColor.Blue;
+            } else if (ChatColors.ContainsKey(journalObject.Channel))
+            {
+                Console.ForegroundColor = ChatColors[journalObject.Channel];
             }
 
             // dont display NPC messages e.g. Cruise Ship, Entering System notifications and so on
