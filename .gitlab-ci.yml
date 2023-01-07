@@ -29,7 +29,7 @@
 
 # place project specific paths in variables to make the rest of the script more generic
 variables:
-  EXE_RELEASE_FOLDER: 'ed-journal-chat\bin\Release\net7.0-windows'
+  EXE_RELEASE_FOLDER: 'bin\Release\net7.0-windows'
   DEPLOY_FOLDER: 'C:\Projects\ed-journal-chat\Builds'
   NUGET_PATH: 'C:\Projects\nuget.exe'
   MSBUILD_PATH: 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe'
