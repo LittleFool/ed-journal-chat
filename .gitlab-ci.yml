@@ -42,6 +42,8 @@ build_job:
   tags:
     - windows
     - shell
+  only:
+    - tags
   script:
     - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
     - 'dotnet publish -f net7.0-windows -r win-x86 -p:PublishSingleFile=true,Configuration=Release --self-contained true'
@@ -55,6 +57,8 @@ deploy_job:
   tags:
     - windows
     - shell
+  only:
+    - tags
   script:
     # Compose a folder for each release based on commit tag.
     # Assuming your tag is Rev1.0.0.1, and your last commit message is 'First commit'
