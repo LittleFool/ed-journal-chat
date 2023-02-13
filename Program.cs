@@ -12,6 +12,7 @@ namespace ed_journal_chat
             Console.OutputEncoding = Encoding.UTF8;
 
             Options.SelectJournalFile();
+            Console.WriteLine("Press 'h' for Help!");
 
             if (Config.ActiveJournalFile != null)
             {
@@ -75,6 +76,7 @@ namespace ed_journal_chat
                 JournalReader.StopWatcher();
                 Console.Clear();
 
+                Console.WriteLine("'q' close the program");
                 Console.WriteLine("'space'\tcopy target system to clipboard");
                 Console.WriteLine("'s'\tcopy last sent message to clipboard");
                 Console.WriteLine("'r'\tcopy last received message to clipboard");

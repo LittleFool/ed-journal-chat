@@ -18,18 +18,25 @@ namespace ed_journal_chat
             int i = 0;
             int j = 0;
 
+            Console.WriteLine("'Live' journals");
+            Console.WriteLine();
+
             for (i = 0; i < H4Files.Length && i < 5; i++)
             {
                 Console.WriteLine("[" + i + "] " + H4Files[i].Name);
             }
 
-            Console.WriteLine(new String('-', 33));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("'Legacy' journals");
+            Console.WriteLine();
 
             for (j = 0; j < H3Files.Length && j < 5; j++)
             {
                 Console.WriteLine("[" + (i + j) + "] " + H3Files[j].Name);
             }
 
+            Console.WriteLine();
             Console.Write("Select the journal file to use: ");
             char input = Console.ReadKey().KeyChar;
             Console.WriteLine();
